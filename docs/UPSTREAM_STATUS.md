@@ -1,3 +1,22 @@
+## Dabbl8 SMK source adoption checkpoint - 2026-10-19
+
+Prepared `integrate/smk-0.9.28` in `grant-vine/dabbl8-smk` from fork baseline
+`00197c1761d060546d07e658c17088477e472482`, preserving all six incoming SMK
+commits through pinned `4a6b332d3597fac6d2d9b053c50b3cad9eca0b77`.
+Felucca musical upstream remains 1.5.1 `a4d7ca2`; shared-fix Phase 2 is on hold.
+Target build, Linux ASan application/Live Panel, updater/flash allowlist,
+both-model package/restore simulations and helper/browser checks passed locally.
+The editor test's incomplete simulated replies were repaired without removing
+assertions. Windows locking skipped on macOS; physical Elite qualification and
+byte-identical firmware reproduction are not established. Existing Dabbl8
+planning/review files were preserved. No device writes, release publication,
+website deployment or main-branch advancement.
+[Source, exact checks, artifacts and limits](dabbl8-smk/upstream-0.9.28.md).
+
+The historical entries below describe the SMK source upstream's work and prior
+tests; they do not grant publication permission or establish Dabbl8 hardware
+qualification.
+
 ## Felucca SMK 0.9.28 flash compatibility release — 2026-10-18
 
 Focused issue #17 fix from fork baseline `1e4bb38`: share the exact 856014 / EB6014
