@@ -5,7 +5,9 @@ import {readFileSync,mkdirSync} from 'node:fs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const core=readFileSync('build/smk37-tests/editor-wire.jsonl','utf8').trim().split('\n').map(JSON.parse);
 const extra=readFileSync('build/smk37-tests/completion-wire.jsonl','utf8').trim().split('\n').map(JSON.parse);
-const frames=[...extra,...core.filter(f=>!extra.some(e=>e[4]===f[4]))];
+const workflow=readFileSync('build/smk37-tests/workflow-wire.jsonl','utf8').trim().split('\n').map(JSON.parse);
+const menus=readFileSync('build/smk37-tests/test19-wire.jsonl','utf8').trim().split('\n').map(JSON.parse);
+const frames=[...workflow,...menus,...extra,...core.filter(f=>!extra.some(e=>e[4]===f[4]))];
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1050}}), errors=[];
 page.setDefaultTimeout(15000);
@@ -16,7 +18,8 @@ await page.addInitScript(frames=>{
  const output={id:'smk-out',name:'Felucca SMK37',type:'output',state:'connected',open:async()=>{},close:async()=>{},send(bytes){
   if(bytes[0]!==240)return;
   const cmd=bytes[4],a=Array.from(bytes).slice(5,-1);sent.push([cmd,...a]);
-  let reply=frames.find(f=>f[4]===cmd && (cmd===5 ? f[5]===a[0]&&f[6]===a[1] : [10,28,29,31].includes(cmd) ? f[5]===a[0] : true));
+  let reply=frames.find(f=>f[4]===cmd && (cmd===5 ? f[5]===a[0]&&f[6]===a[1] : [10,28,29,31,72].includes(cmd) ? f[5]===a[0] : true));
+  if(cmd===37)reply=[240,125,70,76,cmd,0,...a,...Array(a[3]).fill(0),247];
   if(cmd===6){reply=frames.find(f=>f[4]===6).slice();reply[5]=a[0];}
   if(cmd===9)reply=[240,125,70,76,cmd,...a,0,247];
   if(cmd===22)reply=[240,125,70,76,cmd,3,247];
