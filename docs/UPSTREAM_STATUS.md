@@ -1,3 +1,17 @@
+## Dabbl8 SMK selective stable fixes - 2026-10-19
+
+After the recorded 0.9.28 checkpoint, the authorized Phase 2 selectively adapts
+stable Felucca fixes through `a53ecf428c29c780108fd70a31b71a32a6b5c313`:
+LARGE font/glyph stability in the active SMK renderer, +100% bipolar endpoints
+in C/Studio, scanned-indicator blanking during save erase, and deferred SMK
+filter/favorite persistence. Browser virtual saves retain immediate snapshot
+compatibility. Implementation: `c9a6e1208d8480167d5b5bca1d8fd40251af1eb1`.
+This is not a full musical 1.6.1 upgrade. Formats, protected boundaries, helper,
+Live Panel and published device application remain at the Phase 1 baseline.
+Focused regressions, target, both-model packaging and rebuilt browser checks
+pass locally. Original plans are preserved; no device operation or publication.
+[Applicability decisions, evidence and limits](dabbl8-smk/felucca-stable-fixes.md).
+
 ## Dabbl8 SMK source adoption checkpoint - 2026-10-19
 
 Prepared `integrate/smk-0.9.28` in `grant-vine/dabbl8-smk` from fork baseline
