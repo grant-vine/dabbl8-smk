@@ -1,0 +1,401 @@
+{
+  "date": "2026-10-19",
+  "repository": "grant-vine/dabbl8-smk",
+  "phase": 1,
+  "baseline": "00197c1761d060546d07e658c17088477e472482",
+  "smk_source": "4a6b332d3597fac6d2d9b053c50b3cad9eca0b77",
+  "musical_source": "a4d7ca2e5d52a4c35e2468401f00d883cadbda03",
+  "branch": "integrate/smk-0.9.28",
+  "local_evidence": "/Users/grantv/Code/dabbl8-smk/.omo/evidence/upstream-0.9.28-20261019",
+  "worktree": "/private/tmp/dabbl8-smk-0928-20261019",
+  "checks": {
+    "final_pass": [
+      "updater-sanitizers",
+      "controls",
+      "linux-application-asan-posix",
+      "python-smk-suite",
+      "native-transport",
+      "native-client",
+      "native-http-retry",
+      "native-browser",
+      "diagnostics-python",
+      "diagnostics-js",
+      "shipping-wire",
+      "shipping-completion",
+      "shipping-menu",
+      "shipping-preferences",
+      "shipping-samples",
+      "live-panel-browser-served",
+      "descriptor-browser-fixed",
+      "model-package-roundtrip",
+      "stock-restore",
+      "target-build",
+      "native-package",
+      "site-staging",
+      "test_update_progress.mjs",
+      "test_midi_input.mjs",
+      "test_smk_engine.mjs",
+      "test_smk_worklet.mjs",
+      "test_midi_diagnostics.mjs",
+      "test_smk37_handoff.mjs",
+      "test_smk37_update.mjs",
+      "test_install_flow.mjs",
+      "test_discovery.mjs",
+      "test_panel_glide.mjs",
+      "test_locales.mjs",
+      "test_analytics.mjs",
+      "test_web.mjs",
+      "test_keyboard_glide.mjs"
+    ],
+    "corrected_setup_failures": {
+      "application.log": "macOS Mach-O cannot compile firmware ELF sections; suite passed under Linux ASan",
+      "linux-application-asan.log": "strict C99 host clock declarations; passed with _POSIX_C_SOURCE=200809L",
+      "native-http.log": "sandbox loopback-bind denial; passed with allowed loopback scope",
+      "test_smk37_wire.mjs.log": "missing required fixture argument in invocation; corrected invocation passed",
+      "live-panel-browser.log": "AudioWorklet bypassed page routing with no listener; unchanged test passed with loopback server",
+      "descriptor-browser.log": "simulated device omitted advertised preferences/menu replies; fixture-only repair passed unchanged assertions"
+    },
+    "skipped": {
+      "windows-lock.log": "Windows-only file locking unavailable on macOS"
+    },
+    "physical_device_operations": "none",
+    "publication_or_deployment": "none",
+    "local_build_byte_reproducible": false
+  },
+  "logs": [
+    {
+      "path": "build/phase1-evidence/application.log",
+      "bytes": 7922,
+      "sha256": "de1da7b8b71886b70ab65a4d0f4fd8ceec5a49b90dc25a6963bbb5a7eef7b898"
+    },
+    {
+      "path": "build/phase1-evidence/controls.log",
+      "bytes": 1750,
+      "sha256": "a1edbe06785b5dc5ecdc1a037329bbf3541f388fe48cdd6688d52accb06a8e9d"
+    },
+    {
+      "path": "build/phase1-evidence/descriptor-browser-fixed.log",
+      "bytes": 151,
+      "sha256": "39452449fdd135a01fd8d439cbca844d021504ab55b8655600f0843d9f7abde8"
+    },
+    {
+      "path": "build/phase1-evidence/descriptor-browser.log",
+      "bytes": 403,
+      "sha256": "5a8018c5c6d3bfbece3ba1e5b68b0e3a95382ed462dad59b19795e75566017d6"
+    },
+    {
+      "path": "build/phase1-evidence/diagnostics-js.log",
+      "bytes": 86,
+      "sha256": "2d73ede75041c704a143a880be625662c9dacb11749f07f3147d15723a74965c"
+    },
+    {
+      "path": "build/phase1-evidence/diagnostics-python.log",
+      "bytes": 102,
+      "sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6"
+    },
+    {
+      "path": "build/phase1-evidence/linux-application-asan-posix.log",
+      "bytes": 20438,
+      "sha256": "968947b3068f82400c86f1264b1d47c9250e4fe54d6c760ca4cdebaa3110cfcc"
+    },
+    {
+      "path": "build/phase1-evidence/linux-application-asan.log",
+      "bytes": 1240,
+      "sha256": "e94c7fc2dd826907c5c2bf45ff40c0c5afe079728c4164527cc77fdb56950d95"
+    },
+    {
+      "path": "build/phase1-evidence/live-panel-browser-served.log",
+      "bytes": 605,
+      "sha256": "e3f2b91e3169e419c6dfd8547b951672cb38a1d0c643dd1924714470f3b5144a"
+    },
+    {
+      "path": "build/phase1-evidence/live-panel-browser.log",
+      "bytes": 1131,
+      "sha256": "50620493ebbda7b23923b2e5546795a0865a33b97e5ae9168acca14c9b7003e3"
+    },
+    {
+      "path": "build/phase1-evidence/model-package-roundtrip.log",
+      "bytes": 449,
+      "sha256": "f16f89e31e7ea4d147cb2e9178017d0a0cace1144d84836bb37f9e882727056d"
+    },
+    {
+      "path": "build/phase1-evidence/native-browser.log",
+      "bytes": 140,
+      "sha256": "3300db6cec17563493c183a8eac1b222d49a4c10f5ca7b220c22c80c41339de5"
+    },
+    {
+      "path": "build/phase1-evidence/native-client.log",
+      "bytes": 132,
+      "sha256": "f784198a020f290ad287d59d2bc66113658bfac92ad627a637267489d96f0c22"
+    },
+    {
+      "path": "build/phase1-evidence/native-http-retry.log",
+      "bytes": 122,
+      "sha256": "25ff45c5f8f2f4b395207b23b1c738a017a82a2844b8298e7ce74a5a901bdd49"
+    },
+    {
+      "path": "build/phase1-evidence/native-http.log",
+      "bytes": 257,
+      "sha256": "bba48bfade6405ad0a11f7100fc39bd3671c97b357484d0614aeced6c2718a0b"
+    },
+    {
+      "path": "build/phase1-evidence/native-package.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build/phase1-evidence/native-transport.log",
+      "bytes": 106,
+      "sha256": "b3e6ba03c66ed598fe3f99d418edd76293bf4011ab7d5f2c76f78f3bb6de5253"
+    },
+    {
+      "path": "build/phase1-evidence/preview-server.log",
+      "bytes": 3498,
+      "sha256": "5bcfaa0a51249b3a8b6de4625f6f777ee593a3e14f61741686cbde58413a70dc"
+    },
+    {
+      "path": "build/phase1-evidence/python-smk-suite.log",
+      "bytes": 440,
+      "sha256": "8da19651b6aa8bb15ac93f1bea4e210e0d725455234d2b860fe54a6ea9e1d349"
+    },
+    {
+      "path": "build/phase1-evidence/shipping-completion.log",
+      "bytes": 92,
+      "sha256": "c2c023c86b6e046dba7b34f46fbdd6c16312f25dec1de9025a16f165fbd43d89"
+    },
+    {
+      "path": "build/phase1-evidence/shipping-menu.log",
+      "bytes": 124,
+      "sha256": "2377155ed5f4fea01681f9d91d1281653e2ef8ccfddf19ccb4be8c0af69f7be8"
+    },
+    {
+      "path": "build/phase1-evidence/shipping-preferences.log",
+      "bytes": 85,
+      "sha256": "57427293716a4307cbbf247cf25d8eacacd8abff1e7557b4d7eb366cbaeb0ad4"
+    },
+    {
+      "path": "build/phase1-evidence/shipping-samples.log",
+      "bytes": 114,
+      "sha256": "73601014855a352b4cc839997ca94b4e7795794c6abecf939c3ad8191f185024"
+    },
+    {
+      "path": "build/phase1-evidence/shipping-wire.log",
+      "bytes": 101,
+      "sha256": "84dc0b73574ff4e69b97b14f13ba77c78d2d9ac3c34bd7a8534080a7e6b89229"
+    },
+    {
+      "path": "build/phase1-evidence/site-staging.log",
+      "bytes": 66,
+      "sha256": "518bbfaa837536870c8d5c339bfa45937310628e45342076b150df2a2505fd87"
+    },
+    {
+      "path": "build/phase1-evidence/stock-restore.log",
+      "bytes": 1118,
+      "sha256": "235f6cf08c4494111496fe0d0ec75d86adb21512254248e0d1a582307e5f831b"
+    },
+    {
+      "path": "build/phase1-evidence/target-build.log",
+      "bytes": 3602,
+      "sha256": "91b97609005cde3583048787bcdb73fe17390a0f49f3c97fbd6b0c7c4e800801"
+    },
+    {
+      "path": "build/phase1-evidence/test_analytics.mjs.log",
+      "bytes": 87,
+      "sha256": "e17945257127c88169d6f4f3d51551364df04f93562e44022b9acffea9f56fae"
+    },
+    {
+      "path": "build/phase1-evidence/test_discovery.mjs.log",
+      "bytes": 348,
+      "sha256": "bdc2b7a1900eb6239e10d5a0734c4da52fa3756a505f263d6e6b522002f1ea6a"
+    },
+    {
+      "path": "build/phase1-evidence/test_install_flow.mjs.log",
+      "bytes": 1303,
+      "sha256": "59116a75fb427619147b45d7f715f464b864db9200787079ff807be8865ac558"
+    },
+    {
+      "path": "build/phase1-evidence/test_keyboard_glide.mjs.log",
+      "bytes": 87,
+      "sha256": "7f976c7fd69a0141d3cc4f1c86a00593cda332609cdf89ed7c075a4aeeafd491"
+    },
+    {
+      "path": "build/phase1-evidence/test_locales.mjs.log",
+      "bytes": 156,
+      "sha256": "11e846f19b989ea7013d8ac41a3edd426a1c5080d47b19580abfd03cf3ada6e6"
+    },
+    {
+      "path": "build/phase1-evidence/test_midi_diagnostics.mjs.log",
+      "bytes": 136,
+      "sha256": "8329d5fc5df9aa39baf855fa7209be83fa1699635a8e698e2c24e7755b718b4f"
+    },
+    {
+      "path": "build/phase1-evidence/test_midi_input.mjs.log",
+      "bytes": 132,
+      "sha256": "81b121576892c1b3af003f12c0377c42a2389725cc840bfbb5089d2c0e96db6c"
+    },
+    {
+      "path": "build/phase1-evidence/test_panel_glide.mjs.log",
+      "bytes": 115,
+      "sha256": "80d345c165fb46e0d6a5ea33fbb7dc834fd45eb9494d52db0da602a52f9f1732"
+    },
+    {
+      "path": "build/phase1-evidence/test_smk37_handoff.mjs.log",
+      "bytes": 167,
+      "sha256": "8fe56300c448c352314dc7b8b210dd005a96c71dd701ca85c579ba701dd20348"
+    },
+    {
+      "path": "build/phase1-evidence/test_smk37_update.mjs.log",
+      "bytes": 114,
+      "sha256": "4052f019d7b3231856c78102fcf3728001e9742f2773de1a11d4c2ace0002677"
+    },
+    {
+      "path": "build/phase1-evidence/test_smk37_wire.mjs.log",
+      "bytes": 839,
+      "sha256": "82fb686e98da233427c1f3bfe73932946847547a8f8850b04980965dda153c78"
+    },
+    {
+      "path": "build/phase1-evidence/test_smk_engine.mjs.log",
+      "bytes": 158,
+      "sha256": "17ff591d1b70fbf582eb74608095dd63dae171b72d53a41bc5f32ba32ba42871"
+    },
+    {
+      "path": "build/phase1-evidence/test_smk_worklet.mjs.log",
+      "bytes": 258,
+      "sha256": "97e8a58be099feb41d912c03912d48bea4aa2a4cedf9a6379fee006edc57be50"
+    },
+    {
+      "path": "build/phase1-evidence/test_update_progress.mjs.log",
+      "bytes": 177,
+      "sha256": "1c31f562a7ad2613ad365029f25d0d9619d48a2c376eb4d478072a980065c0f5"
+    },
+    {
+      "path": "build/phase1-evidence/test_web.mjs.log",
+      "bytes": 17505,
+      "sha256": "6c641ca3cc5f4b34a20aa06a8d41865321f24ac9b17873163e548e70c130a5a0"
+    },
+    {
+      "path": "build/phase1-evidence/updater-sanitizers.log",
+      "bytes": 270,
+      "sha256": "6751deaf3f5eb4aba1d3365445c0f8e77ad8f5df78db5806a49111f0318d7d6e"
+    },
+    {
+      "path": "build/phase1-evidence/windows-lock.log",
+      "bytes": 32,
+      "sha256": "25ec28b2c7a17cbeecf3d7dcb14ec374c2148730446ba2b9c4e7c9a10fb8283c"
+    }
+  ],
+  "files": [
+    {
+      "path": "build/smk37-panel-mirror-candidate/manifest.json",
+      "bytes": 2332,
+      "sha256": "e04ad671e899e27d054b2113df9822a84444cbc2250427c1a659165a701f2ce4"
+    },
+    {
+      "path": "build/smk37-panel-mirror-candidate/smk37-integration-NOT-FOR-INSTALL.bin",
+      "bytes": 420796,
+      "sha256": "f09af2250dc4566ee301840a463d28e2f56b9504421e2f0973cd07173d952171"
+    },
+    {
+      "path": "web/firmware/felucca-smk-0.9.28-app.bin",
+      "bytes": 420796,
+      "sha256": "b53614f3420d80bdc7ad31cf5b1d20ed35b4063fba4d64b70b1226c6bc498ab9"
+    },
+    {
+      "path": "web/firmware/public-release.json",
+      "bytes": 1159,
+      "sha256": "05b0d445cc525f68392d7a6b529f3b1bc7867755bbe9a9f45a3f3e23c86ecb5a"
+    },
+    {
+      "path": "web/audio/smk-engine.wasm",
+      "bytes": 2375370,
+      "sha256": "19355f85a620a57b28356f479f29378b9628d04a34308fd2c4640721c446d43e"
+    },
+    {
+      "path": "build/smk37/stock-pro.fwsc",
+      "bytes": 705252,
+      "sha256": "2d98ce72530e71d617384963423820536f094501299e2cfec0a8d3c3fb6bcfb0"
+    },
+    {
+      "path": "build/smk37/stock-elite.fwsc",
+      "bytes": 705236,
+      "sha256": "b2ee38abfef3ae922e4eecdb8a551e14345300ae6f270265feacd33b6ef99cb6"
+    },
+    {
+      "path": "build/panel-preview/device-mirror-fixture.png",
+      "bytes": 458777,
+      "sha256": "fab4e7f55853bf9faa1cfb2c0aeb9127b1fd6cefd7043e4167de7a04bb8e442b"
+    },
+    {
+      "path": "build/panel-preview/device-screen-only.png",
+      "bytes": 391121,
+      "sha256": "f9cc97aabd0b46de36e629ee32ee7c4897248ff379f1a55ed9986314fb49a763"
+    },
+    {
+      "path": "build/screenshots/smk37-upstream-sequencer.png",
+      "bytes": 431208,
+      "sha256": "3df8d055bac670e92f7cd2c820ee9adcb2b248d933e1f43f34e1bbc1469fac3d"
+    }
+  ],
+  "preserved": [
+    {
+      "path": ".omo/drafts/dabbl8-smk-hardware-readiness.md",
+      "bytes": 4341,
+      "sha256": "11e51f42de2855b59c0c68faa474ce34b0748c2c4f7c1e6da6dab627ff07a21f"
+    },
+    {
+      "path": ".omo/drafts/fm1-smk37-comparison.md",
+      "bytes": 4607,
+      "sha256": "cc00d3c13f184b017a8fe64cbef74a8ae33d6e547c08578a244dec6ee2705f3a"
+    },
+    {
+      "path": ".omo/drafts/fork-created.png",
+      "bytes": 145856,
+      "sha256": "59fbbe9641db8cf1317e8d493c150bd0b1ea773ef9dac7dd5277c1fa6e3f56b5"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r1.md",
+      "bytes": 2799,
+      "sha256": "4bdbd264e28cfddfeca680d3c94069c48daaec3f15672a804b058092602f8cc0"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r2.md",
+      "bytes": 2146,
+      "sha256": "0342610609bf5321d6532e4d305da8c6e2c593ee5f910bb45bbf6fd19c83603f"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r3.md",
+      "bytes": 2343,
+      "sha256": "df22546d1b684ab711cc61c438f76d8fdaf6e03deffe86f29c0cc4638c5df7cb"
+    },
+    {
+      "path": ".omo/drafts/momus-review-r2.md",
+      "bytes": 1099,
+      "sha256": "9a154c0a6f879e072b4d2e2477e8975530346393f54513e21c4060c59a77dbd2"
+    },
+    {
+      "path": ".omo/drafts/momus-review-r3.md",
+      "bytes": 769,
+      "sha256": "06bb00384a5f545d6a70f4ac05c0406293b743a876bb21068667be00664179c4"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r1.json",
+      "bytes": 2341,
+      "sha256": "279ec82e4807f71063517c42072d8e902beab7654d18b51a80aa9c7df8373ebd"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r2.json",
+      "bytes": 1523,
+      "sha256": "2c21bdffabf1178debee92e2e5ff9b66cc838e746ca59442820349261ca86870"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r3.json",
+      "bytes": 1646,
+      "sha256": "ffec2418e5ec4ff6d9d8c491a47a0f77fcb0612b8195f94af0d0e532cfd0e42f"
+    },
+    {
+      "path": ".omo/plans/dabbl8-smk-hardware-readiness.md",
+      "bytes": 40930,
+      "sha256": "f23907b9df0b34924d82a3803554407185e225e3e08454938da9b6cf59024a66"
+    }
+  ]
+}

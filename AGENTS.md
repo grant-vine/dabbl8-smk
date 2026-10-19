@@ -1,14 +1,23 @@
-# Felucca SMK repository instructions
+# Dabbl8 SMK repository instructions
+
+Model routing: use GPT-6.1 Sol with xhigh reasoning for substantive work and
+GPT-6 Luna for routine/background tasks. Do not select Astra without the owner's
+explicit request. Preserve this policy during tooling upgrades.
 
 Read [docs/UPSTREAM_WORKFLOW.md](docs/UPSTREAM_WORKFLOW.md) before importing
 upstream changes, preparing contributions, changing firmware protocols, or
 publishing a release. These are Salt's operating rules, not upstream policy.
 
-- Our writable repository is `ChanceTheMaker/felucca-smk`. Treat
-  `hugelton/Felucca` as read-only. In the legacy linked worktree, **origin points
-  at upstream**; in the standalone SMK checkout it points at the SMK repository.
-  Inspect remote URLs; never assume `origin` is the fork. Use an
-  explicit fork URL for pushes unless a verified fork remote is configured.
+- Our writable repository is `grant-vine/dabbl8-smk`. Treat
+  `ChanceTheMaker/felucca-smk` (SMK source upstream) and `hugelton/Felucca`
+  (musical upstream) as read-only destinations. Here `origin` is the Dabbl8 SMK
+  fork and `upstream` is ChanceTheMaker's SMK repository. Legacy examples in
+  `docs/UPSTREAM_WORKFLOW.md` describe the original Salt fork; do not copy their
+  push destinations. Inspect remote URLs and use an explicit owned-fork URL.
+- Shared Dabbl8 composition/project architecture remains governed by the main
+  Dabbl8-first plan. Separately authorized SMK source maintenance is allowed;
+  it does not begin the wider eight-track device port. See
+  `docs/dabbl8-smk/upstream-0.9.28.md` for the current maintenance checkpoint.
 - Fetch, compare, test, and prepare focused changes autonomously within the
   current task. Keep unrelated features in separate branches and PRs.
 - Never submit the Salt branch wholesale upstream. Prepare each proposed

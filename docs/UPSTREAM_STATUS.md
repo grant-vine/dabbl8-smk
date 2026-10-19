@@ -1,3 +1,32 @@
+## Dabbl8 SMK source adoption checkpoint - 2026-10-19
+
+Prepared `integrate/smk-0.9.28` in `grant-vine/dabbl8-smk` from fork baseline
+`00197c1761d060546d07e658c17088477e472482`, preserving all six incoming SMK
+commits through pinned `4a6b332d3597fac6d2d9b053c50b3cad9eca0b77`.
+Felucca musical upstream remains 1.5.1 `a4d7ca2`; shared-fix Phase 2 is on hold.
+Target build, Linux ASan application/Live Panel, updater/flash allowlist,
+both-model package/restore simulations and helper/browser checks passed locally.
+The editor test's incomplete simulated replies were repaired without removing
+assertions. Windows locking skipped on macOS; physical Elite qualification and
+byte-identical firmware reproduction are not established. Existing Dabbl8
+planning/review files were preserved. No device writes, release publication,
+website deployment or main-branch advancement.
+[Source, exact checks, artifacts and limits](dabbl8-smk/upstream-0.9.28.md).
+
+The historical entries below describe the SMK source upstream's work and prior
+tests; they do not grant publication permission or establish Dabbl8 hardware
+qualification.
+
+## Felucca SMK 0.9.28 flash compatibility release — 2026-10-18
+
+Focused issue #17 fix from fork baseline `1e4bb38`: share the exact 856014 / EB6014
+allowlist between update and storage, retain all protected-region checks, and
+report loader failures to both installers and stock restore. Upstream stays
+at Felucca 1.5.1 `a4d7ca2`. Host suites and the owner's 856014 Pro round trip
+passed. EB6014 and Elite hardware validation remain pending. Owner authorized publication of the tested 0.9.28 application and matching
+installer/helper pins; no upstream contribution submitted.
+[Evidence, protocol and recovery limits](smk37/FLASH_COMPATIBILITY.md).
+
 ## Felucca SMK 0.9.24 USB repair — 2026-10-12
 
 Selected for authorized publication after Pro recovery, normal-USB reinstall
@@ -635,3 +664,127 @@ Added footer links among SMKLab, Felucca SMK, Sloop SMK and Melodee SMK on the h
 ## Installer progress bars (2026-10-12)
 
 Website-only fork change. Adds preparation, unique-byte transfer, restart-confirmation and stopped states to installation and factory restore. Repeated/overlapping requests do not inflate progress; 100% requires the existing verified-success path. Published firmware, model checks, flash ranges, loader commands and upstream baseline are unchanged. Offline progress/transport and existing installer/restore tests passed; no device was flashed for this UI change.
+
+## Device-master SMK panel candidate (2026-10-14)
+
+Branch `feat/device-panel-mirror`, isolated worktree `felucca-smk-panel-sync`.
+Base: local a5a1098 (0.9.23 storage/TRS work), upstream Felucca 1.5.1
+at a4d7ca2e5d52a4c35e2468401f00d883cadbda03. The older main worktree and its
+uncommitted web work remain intact. Retains the existing Salt/SMK controls,
+storage gates, UI settings and USB updater. No upstream import or contribution.
+
+The connected SMK view now requires negotiated device-panel support. It streams
+actual LCD drawing with a 16-color palette, raw held-key/pad state and the actual
+LED masks. Browser input goes through physical panel handlers; page, bank,
+transpose and routing settings belong to the instrument. SMK soundboard remains
+available for older firmware. Simulator/Browser Studio remain independent audio
+modes. Preview finish selection is cosmetic only.
+
+Local 0.9.24 candidate only; public release files remain 0.9.23. Build:
+`python tools/build_smk37.py --public-release --panel-mirror --usb-test-number 24`
+(`--public-release` selects portable model guards, not publication).
+`python tools/stage_smk37_panel_preview.py` stages a separate loopback test site
+under build/panel-preview/site; it refuses an existing output directory.
+
+Validation: target compile/link and call-free flash routine checks passed. Host
+ASan/UBSan panel checks cover owner overlap, lease expiry, canceled holds, bounds,
+input handlers, screen pixels and native wire fixtures. Existing editor, workflow
+and updater regressions passed. Chrome checks cover screen tiles, physical keys
+and lights, pad input, mode switching, unsupported firmware, Browser Studio and
+Simulator. Both official Pro016/Elite016 packages pass offline CRC/round-trip,
+protected-byte and corruption-rejection checks. Local installer preparation
+reaches ready without opening MIDI. No firmware flashed, commit, push or public
+release in this round.
+
+RAM: framebuffer 28,800 bytes; static pool end 0x1c73e58 (424 bytes before its
+fixed guard boundary), BSS end 0x1c18c4c. Pool/stack layout is unchanged and the
+linker enforces the allocation. This leaves little pool headroom for more features.
+
+Next physical checks on 0.9.24: compare screen/page/theme/bank changes in both
+directions; verify all 37 key highlights and all 16 pad LEDs including step mode;
+verify button LEDs, faders, wheels, sustain and transport; disconnect with browser
+notes held while keeping physical keys held; test sustained USB audio while the
+screen streams. Screen colors are quantized and tile latency is expected. These
+hardware checks are pending; software checks do not establish device safety.
+
+Local panel follow-up: browser endless encoders now animate drag/key/wheel gestures without inventing parameter values; the device LCD remains authoritative. Serial input requests take priority over queued background requests; LCD tile polling pauses for 100 ms after input while small state polls continue. Browser regressions cover dragging, keyboard rotation, priority, FIFO press/release, and state updates during tile pause. These are browser-only changes for the existing 0.9.24 candidate; staged locally at port 8821. Physical latency improvement still needs user evaluation. No flash or publication performed.
+
+Screen responsiveness follow-up: supersedes the prior 100 ms tile pause. Removed that pause and the mandatory 8 ms sleep after every strip; fetch up to eight sequential replies or 12 ms per browser task, with an event-loop yield between batches. Check pending input between replies, retain one background request in flight and serial priority input. State remains device-owned. Regression verifies screen progress during repeated encoder events, no additional tiles while input is pending, and existing panel/UI behavior. Mock immediate-response run completed 60 tiles in 127 ms; this is scheduler evidence, not measured hardware USB performance. Browser-only staged on port 8821; firmware unchanged.
+
+Local 0.9.25 panel candidate: negotiated capability 2 adds changed-strip maps
+and bounded RLE tile encoding; v1 clients/firmware remain compatible. The
+firmware compares captured pixels, invalidates all strips on theme change,
+and clears a strip before encoding so later changes remain pending. Browser
+fetches full screen only initially, then marked strips. Native ASan/UBSan
+tests cover identical blits, edge pixel changes, map non-destructive reads,
+palette invalidation, compression and raw fallback. Browser tests compare
+all 60 compressed tiles pixel-for-pixel with v1, verify zero tile traffic for
+unchanged frames and exactly one tile for one changed strip, retain input
+priority, and exercise v1/v2 negotiation. Fixture full snapshot: 12119 bytes
+versus 36540 legacy bytes (67% reduction); this is not a hardware latency
+measurement. Both Pro/Elite package integrity and protected-region tests pass.
+Candidate: 418736 bytes, SHA256
+332f8691132412daccc8bbc4a949fc7e3c847e4f219992fca0470d245c51b33d.
+Pool end remains 0x1c73e58 (424 bytes before guard). No flash layout changes.
+User reports 0.9.24 panel controls generally working, but screen too slow;
+0.9.25 physical screen speed and audio-under-transfer checks remain pending.
+Local site staged in build/panel-preview/site-delta, served on port 8821.
+No device flashing or public publication performed.
+
+Local 0.9.26 follow-up: measured the connected 0.9.25 instrument through opt-in
+?paneldebug=1 logging. Small state/map/strip round trips were approximately
+30-60 ms; separate status reads plus sixty strip requests explain slow page
+changes. Capability 3 batches compressed strips with one state snapshot and
+one shared palette, bounded to 1536 wire bytes and 16 strips. A native screen
+fixture now takes 8 replies / 9579 bytes instead of 60 / 12119 bytes plus
+separate state reads. Browser test with 50 ms simulated response latency took
+622 ms for that complete screen, including state. This is a simulated timing
+result, not a claim of measured 0.9.26 hardware speed.
+Native ASan/UBSan tests verify full coverage, exact decoded pixels, no-dirty
+responses, raw worst-case size bounds and earlier ownership/lease tests.
+Browser regressions verify v1 fallback, v2 selective updates, v3 batch decode,
+knobs, routing, keys/lights and input ordering. Both Pro/Elite packaging and
+protected-region checks pass. Image: 419340 bytes; SHA256
+ e30d6904d845815330d1bab822115cbbb38a769ef11c8f5ff5a4ede59c7f2b13.
+BSS end 0x1c18c5c, pool end unchanged 0x1c73e58. Local site-batch on port 8821.
+No device flash or publication performed. Hardware page-change speed and
+sound/control responsiveness under batched transfer remain to be checked.
+
+Local 0.9.27: user reports 0.9.26 much faster but sequencer playback exposes
+remaining bandwidth limits and page changes begin midway down the screen.
+Capability 4 adds four-row changed rectangles, aligned to pixel pairs, with
+the same 1536-byte wire limit. Page changes reset the scan to the top. A real
+native sequencer step fixture takes 1992 bytes / 2 replies versus 9734 bytes /
+8 full-strip replies (about 80% fewer bytes). A narrow 104-pixel-tall test
+cursor takes 630 bytes / 1 reply. These are host fixtures, not USB timings.
+ASan/UBSan and browser tests pass: patches exactly reproduce final pixels,
+untouched surroundings survive, page order resets, initial snapshots are full,
+legacy paths remain usable, and input ownership/priority tests still pass.
+The browser adds Screen only / Full panel, retaining the live canvas and
+connection, with a large responsive display and existing fullscreen control.
+Verified desktop and 390-pixel-wide layout; iPad hardware/browser compatibility
+has not been tested. Source public release stays 0.9.23; only ignored local
+site-rect staging uses 0.9.27. No flashing or publication performed.
+Both Pro/Elite offline package and updater checks pass. Image: 420536 bytes;
+SHA256 a67fba6360568e49d7f296a515eea7c600fcb35dd071cbbd6afe1f95a92fd342.
+BSS end 0x1c18cdc; pool end unchanged at 0x1c73e58. Hardware sequencer speed
+and audio/control responsiveness under rectangle streaming remain pending.
+
+Publication 0.9.27 (2026-10-14): owner confirmed hardware testing of the local panel candidate and authorized release. Rebased onto fork main 00197c1 to retain factory restore, progress reporting, compatible Doom handoff and repaired Pro calibration/updater handling. The final combined application is 420600 bytes, SHA256 eed32575f2143f5a3d611caaf1e22bd5f6424bb7ced9a18ca2a45d83c705d870. Its screen implementation matches the tested candidate; updater repair is from the prior released 0.9.24. Do not conflate that evidence with a new full test of the combined image on both models. Public identity SMK-37_927, capability 4; Bluetooth remains isolated. README and homepage describe Live Panel, Device Studio, Simulator, Browser Studio and screen-only mode.
+
+## Windows SMK Pro USB isolation (2026-10-16)
+
+Ports Sloop 0a51b35's native Windows helper and disposable MIDI sessions.
+Installation and original-firmware restore require the matching helper on Windows
+Pro; errors never fall back to browser MIDI. Package construction uses this
+project's own verified builders and pins the existing app. Expected boot identity:
+SMK-37_927. No firmware, protected storage or protocol changes. Elite retains
+its existing browser path. No upstream contribution was submitted.
+
+Validation includes mocked native stages, cross-process exclusion, HTTP boundary
+checks, package verification and browser install/restore routing. Hardware checks
+passed on the connected SMK-37 Pro: Sloop 938 to Felucca 927, then
+original Pro 016. Both exact restart identities were confirmed. The real
+installer page made zero Web MIDI requests; its heartbeat advanced throughout
+the install (426 ticks at 100 ms). Hardware-test baseline: d52e437. Reconciled with ba2e583 homepage copy;
+firmware and transport unchanged.
