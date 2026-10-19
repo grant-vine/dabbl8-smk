@@ -49,6 +49,11 @@ const E = vm.runInNewContext(proto + `
    midiLearn: typeof midiLearn === "undefined" ? null : midiLearn })`,
 { setTimeout, clearTimeout, setInterval, clearInterval, console });
 
+for (const [value, expected] of [[-64, "-100"], [-32, "-50"], [0, "0"], [32, "+50"], [63, "+100"]]) {
+  const shown = E.fmtValue({ fmt: E.F.BIPCT, min: -64, max: 63 }, value);
+  ok(shown[0] === expected && shown[1] === "%", `editor: bipolar ${value} displays ${expected}%`);
+}
+
 async function editorMock() {
   const m = E.makeMockDevice();
   const inp = [...m.access.inputs.values()][0], out = [...m.access.outputs.values()][0];

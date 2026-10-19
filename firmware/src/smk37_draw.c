@@ -55,7 +55,36 @@ static void smk37_draw_header(unsigned track)
     cv_blit(0,0);
 }
 
-static void smk37_draw_card(unsigned column,const char *label,const char *value,const char *unit,int ratio)
+static int smk37_font_fits(const aafont_t *font,const char *value,const char *unit,const char *label)
+{
+    for(const char *p=value;*p;++p)if(glyph_at(font,fold(font,(uint8_t)*p))<0)return 0;
+    int uw=unit[0] && !str_eq(label,unit)?text_w(&AF_S,unit)+3:0;
+    return text_w(font,value)+uw<=108;
+}
+
+static const aafont_t *smk37_large_font(unsigned column,const param_desc_t *desc,const char *label)
+{
+    static struct {param_desc_t desc;const char *label;const aafont_t *font;uint8_t bold;} cache[4];
+    unsigned c=column&3u;
+    if(!desc)return &AF_M;
+    const param_desc_t *old=&cache[c].desc;
+    if(cache[c].font && cache[c].bold==font_bold && cache[c].label==label &&
+       old->min==desc->min && old->max==desc->max && old->fmt==desc->fmt &&
+       old->names==desc->names && old->unit==desc->unit)return cache[c].font;
+    const aafont_t *font=&AF_L;
+    uint8_t named=fmt_named;
+    for(int32_t v=desc->min;v<=desc->max;++v){
+        char text[24];const char *unit;
+        param_format(desc,v,text,&unit);
+        if(font==&AF_L && !smk37_font_fits(font,text,unit,label))font=&AF_M;
+        if(font==&AF_M && !smk37_font_fits(font,text,unit,label)){font=&AF_S;break;}
+    }
+    fmt_named=named;
+    cache[c].desc=*desc;cache[c].label=label;cache[c].bold=font_bold;cache[c].font=font;
+    return font;
+}
+
+static void smk37_draw_card(unsigned column,const char *label,const char *value,const char *unit,int ratio,const param_desc_t *desc)
 {
     /* FM-1 standard cards: 57 x 44, x 3+59*c, y 28. */
     int width=smk37_large_frame?116:57,height=smk37_large_frame?82:44,space=width-8;
@@ -65,13 +94,13 @@ static void smk37_draw_card(unsigned column,const char *label,const char *value,
     cv_text_fit(5,3,smk37_large_frame?&AF_M:&AF_S,label,T_MID,T_SURF,space);
     if(str_eq(label,unit))unit="";
     int uw=unit[0]?text_w(&AF_S,unit)+3:0;
-    const aafont_t *font=smk37_large_frame && text_w(&AF_L,value)+uw<=space?&AF_L:text_w(&AF_M,value)+uw<=space?&AF_M:&AF_S;
+    const aafont_t *font=smk37_large_frame?smk37_large_font(column,desc,label):text_w(&AF_M,value)+uw<=space?&AF_M:&AF_S;
     /* Preserve a long value's space; its full text is also in custom-page rows. */
     if(text_w(font,value)+uw>space)uw=0;
     unsigned sig=smk37_draw_page*65537u+smk37_draw_track*104729u+TSEL->eng_req*257u+smk37_palette*31u+smk37_bold;
     for(const char *p=label;*p;++p)sig=sig*33u+(unsigned char)*p;
     for(const char *p=unit;*p;++p)sig=sig*33u+(unsigned char)*p;
-    smk37_roll_prepare(column,value,sig,font!=&AF_M);
+    smk37_roll_prepare(column,value,sig,smk37_large_frame || font!=&AF_M);
     int y=smk37_large_frame?35:17;
     int x=font==&AF_M?roll_text(column,5,y,value,T_THEME):cv_text_fit(5,y,font,value,T_THEME,T_SURF,space-uw);
     if(uw)cv_text_on(x+3,y+3,&AF_S,unit,T_MID,T_SURF);
@@ -273,7 +302,7 @@ static void smk37_sound_status(void)
         }
         int ratio=desc[i] && desc[i]->max>desc[i]->min ?
             clamp((enum_rank(desc[i],values[i])-desc[i]->min)*1000/(desc[i]->max-desc[i]->min),0,1000) : -1;
-        smk37_draw_card(i,label,value,unit,ratio);
+        smk37_draw_card(i,label,value,unit,ratio,desc[i]);
 
     }
     const char *hint=smk37_patch_mode ? "< > PRESET" : "< > PAGE";

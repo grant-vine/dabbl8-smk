@@ -4,6 +4,7 @@ set -eu
 cd "$(dirname "$0")/.."
 mkdir -p build/smk37-tests
 python3 tests/test_smk37_storage_backup.py
+python3 tests/smk37_save_led_test.py
 python3 -c 'import sys; sys.path.insert(0, "tools"); import build; build.generate()'
 cc -std=c99 -O1 -w -fsanitize=address -Ibuild/gen -Ifirmware/hal \
     tests/smk37_synth_test.c -o build/smk37-tests/synth

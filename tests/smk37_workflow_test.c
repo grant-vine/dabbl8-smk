@@ -52,5 +52,20 @@ int main(int argc,char **argv){
     smk37_load_preset(TSEL,0);monitor_mode=MON_NOTES;smk37_open(0);smk37_play_key_event(12,100);
     assert(monitor_notes[0].notes[60/32]&(1u<<(60%32)));smk37_sustain(1);smk37_play_key_event(12,0);
     assert(monitor_notes[0].notes[60/32]&(1u<<(60%32)));smk37_sustain(0);assert(!(monitor_notes[0].notes[60/32]&(1u<<(60%32))));
+    smk37_prefs_request=0;smk37_browser_fav=0;smk37_open(SMK37_BROWSER_PAGE);
+    smk37_turn(6,1);assert(!smk37_prefs_request && "Browser filter detent requested an immediate flash save");
+    for(unsigned i=0;i<6;++i){fm1_ms+=500;smk37_turn(6,1);smk37_preferences_poll();assert(!smk37_prefs_request);}
+    fm1_ms=smk37_input_at+9999u;smk37_preferences_poll();assert(!smk37_prefs_request);
+    ++fm1_ms;smk37_preferences_poll();assert(smk37_prefs_request);
+    smk37_prefs_request=0;smk37_preferences_poll();assert(!smk37_prefs_request);
+    smk37_turn(6,-1);smk37_preferences_poll();assert(!smk37_prefs_request);
+    smk37_open(0);smk37_preferences_poll();assert(smk37_prefs_request);smk37_prefs_request=0;
+    smk37_open(SMK37_BROWSER_PAGE);smk37_browser_engine=smk37_browser_index=0;
+    favorite_set(0,0,0);smk37_turn(7,1);smk37_preferences_poll();assert(!smk37_prefs_request);
+    smk37_open(0);smk37_preferences_poll();assert(smk37_prefs_request);smk37_prefs_request=0;
+    smk37_open(SMK37_BROWSER_PAGE);smk37_turn(7,1);smk37_open(0);
+    smk37_preferences_poll();assert(!smk37_prefs_request);
+    smk37_open(SMK37_BROWSER_PAGE);fm1_ms=UINT32_MAX-500u;smk37_turn(6,1);
+    fm1_ms+=10000u;smk37_preferences_poll();assert(smk37_prefs_request);smk37_prefs_request=0;
     puts("SMK workflow: old-bank migration/failure safety, favorites, hold layers, sound undo, FM6 and sustained monitor passed");
 }
