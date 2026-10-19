@@ -15,6 +15,7 @@ static uint32_t smk37_storage_confirm_at;
 static uint8_t smk37_storage_confirm;
 static char smk37_name[13];
 static volatile uint8_t smk37_prefs_request,smk37_rename_request;
+static volatile uint8_t smk37_browser_dirty;
 static uint32_t smk37_user_used;
 static char smk37_user_names[SMK37_UP_SLOTS][13];
 static void smk37_user_name(unsigned k,char *out){str_cpy(out,k<smk37_user_capacity && (smk37_user_used&(1u<<k))?smk37_user_names[k]:"",24);}
@@ -47,6 +48,11 @@ static unsigned smk37_edit_next(unsigned p){
 }
 static unsigned smk37_nav_count(void){unsigned n=0;while(n<12 && smk37_group_pages[smk37_nav_group][n]!=255)++n;return n;}
 static void smk37_open(unsigned p){smk37_storage_confirm=0;smk37_page=p;smk37_patch_mode=p==0;smk37_input_at=fm1_ms;}
+static void smk37_preferences_poll(void){
+    if(smk37_browser_dirty && (smk37_prefs_request || smk37_page!=SMK37_BROWSER_PAGE || fm1_ms-smk37_input_at>=10000u)){
+        smk37_browser_dirty=0;smk37_prefs_request=1;
+    }
+}
 /* One sound undo per gesture. Runtime voice pointers and live note ownership
  * are never copied. Pattern/automation undo remains independent. */
 typedef struct {int16_t p[P_COUNT];uint8_t fm6[FP_SIZE+1],engine,preset,user;} smk37_sound_state_t;
@@ -173,8 +179,8 @@ static int smk37_workflow_turn(unsigned e,int d){
     case SMK37_BROWSER_PAGE:
         if(!c){do{smk37_browser_engine=smk37_wrap(smk37_browser_engine,d,NENGINES+1);}while(smk37_browser_engine==ENGI_DIGITAL);smk37_browser_index=0;smk37_browser_fix();}
         if(c==1)smk37_browser_move(d);
-        if(c==2){smk37_browser_fav=d>0;smk37_prefs_request=1;smk37_browser_fix();}
-        if(c==3 && smk37_browser_valid(smk37_browser_engine,smk37_browser_index)){favorite_set(smk37_browser_engine,smk37_browser_index,d>0);smk37_prefs_request=1;smk37_browser_fix();}return 1;
+        if(c==2){if(smk37_browser_fav!=(unsigned)(d>0)){smk37_browser_fav=d>0;smk37_browser_dirty=1;}smk37_browser_fix();}
+        if(c==3 && smk37_browser_valid(smk37_browser_engine,smk37_browser_index)){if(favorite_set(smk37_browser_engine,smk37_browser_index,d>0))smk37_browser_dirty=1;smk37_browser_fix();}return 1;
     case SMK37_OP_PAGE:case SMK37_OPENV_PAGE:case SMK37_OP2_PAGE:smk37_op_turn(c,d);return 1;
     case SMK37_SLICE_PAGE:if(!c)smk37_slice_sel=clamp(smk37_slice_sel+d,0,smk37_slice_count());else smk37_slice_edit(c,d);return 1;
     case SMK37_NAME_PAGE:

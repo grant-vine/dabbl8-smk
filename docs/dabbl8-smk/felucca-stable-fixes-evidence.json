@@ -1,0 +1,447 @@
+{
+  "date": "2026-10-19",
+  "repository": "grant-vine/dabbl8-smk",
+  "phase": 2,
+  "phase1_checkpoint": "af140032f1b9d3eaf107cf6de5ebb21544666a53",
+  "smk_source": "4a6b332d3597fac6d2d9b053c50b3cad9eca0b77",
+  "musical_baseline": "a4d7ca2e5d52a4c35e2468401f00d883cadbda03",
+  "selected_stable_reference": "a53ecf428c29c780108fd70a31b71a32a6b5c313",
+  "implementation_commit": "c9a6e1208d8480167d5b5bca1d8fd40251af1eb1",
+  "branch": "integrate/smk-felucca-1.6.1-fixes",
+  "local_evidence": "/Users/grantv/Code/dabbl8-smk/.omo/evidence/felucca-stable-fixes-20261019",
+  "final_pass": [
+    "display-final.log",
+    "save-led-green.log",
+    "editor-percent-green.log",
+    "workflow-preservation-green.log",
+    "browser-engine-snapshot-green.log",
+    "browser-worklet-snapshot.log",
+    "target-build-final.log",
+    "model-package-final.log",
+    "live-panel-browser-snapshot.log"
+  ],
+  "failing_before_fix": [
+    "display-red-percent.log",
+    "display-red-glyph.log",
+    "save-led-red.log",
+    "editor-percent-red.log",
+    "browser-save-red.log",
+    "browser-save-snapshot-red-bank2.log"
+  ],
+  "setup_or_non_reproduction": {
+    "display-red-large.log": "Initial envelope/sample sweep passed on wide SMK cards; FUZZ exposed the actual missing-glyph defect",
+    "browser-save-snapshot-red.log": "Navigation encoder was used in track-selection bank; corrected test selects navigation bank first"
+  },
+  "physical_device_operations": "none",
+  "release_or_deployment": "none",
+  "full_musical_upgrade": false,
+  "wider_composition_port": false,
+  "logs": [
+    {
+      "path": "build/phase2-evidence/browser-build-final.log",
+      "bytes": 94,
+      "sha256": "c6514adc25fc8e0b1e2a7e69aa9eb67820f8f989664642f0b8a6a9b24a04f8ed"
+    },
+    {
+      "path": "build/phase2-evidence/browser-build-snapshot.log",
+      "bytes": 94,
+      "sha256": "6336ad4cc3a2033cab555c639a84b11b6a109631966c3ebea19926087958644c"
+    },
+    {
+      "path": "build/phase2-evidence/browser-build.log",
+      "bytes": 94,
+      "sha256": "e010ea86480cef76dfd3617ef7be02e778a823d5f0319837e276e8f396c145df"
+    },
+    {
+      "path": "build/phase2-evidence/browser-engine-final.log",
+      "bytes": 158,
+      "sha256": "17ff591d1b70fbf582eb74608095dd63dae171b72d53a41bc5f32ba32ba42871"
+    },
+    {
+      "path": "build/phase2-evidence/browser-engine-snapshot-green.log",
+      "bytes": 158,
+      "sha256": "17ff591d1b70fbf582eb74608095dd63dae171b72d53a41bc5f32ba32ba42871"
+    },
+    {
+      "path": "build/phase2-evidence/browser-engine.log",
+      "bytes": 158,
+      "sha256": "17ff591d1b70fbf582eb74608095dd63dae171b72d53a41bc5f32ba32ba42871"
+    },
+    {
+      "path": "build/phase2-evidence/browser-save-red.log",
+      "bytes": 189,
+      "sha256": "7e7376cab875c2a43ab7e9251e27e43434d0c3c12ef30383bc2b2fd3e21c33f8"
+    },
+    {
+      "path": "build/phase2-evidence/browser-save-snapshot-red-bank2.log",
+      "bytes": 409,
+      "sha256": "8f1c59e259fb5de3495ba33862c0e05b8945497588e0aa52a83bbe9671678240"
+    },
+    {
+      "path": "build/phase2-evidence/browser-save-snapshot-red.log",
+      "bytes": 485,
+      "sha256": "de6695ff6fd90aab098fb6cba4ca222f2356ab4ef8a98a7ebcb91bcf976fe4d3"
+    },
+    {
+      "path": "build/phase2-evidence/browser-worklet-final.log",
+      "bytes": 258,
+      "sha256": "97e8a58be099feb41d912c03912d48bea4aa2a4cedf9a6379fee006edc57be50"
+    },
+    {
+      "path": "build/phase2-evidence/browser-worklet-snapshot.log",
+      "bytes": 258,
+      "sha256": "97e8a58be099feb41d912c03912d48bea4aa2a4cedf9a6379fee006edc57be50"
+    },
+    {
+      "path": "build/phase2-evidence/browser-worklet.log",
+      "bytes": 258,
+      "sha256": "97e8a58be099feb41d912c03912d48bea4aa2a4cedf9a6379fee006edc57be50"
+    },
+    {
+      "path": "build/phase2-evidence/display-final.log",
+      "bytes": 89,
+      "sha256": "d4de64dd26ad051ecc120ec80f0a6daf4df02b403ae1ac1153a4dc2c8d2a1934"
+    },
+    {
+      "path": "build/phase2-evidence/display-green.log",
+      "bytes": 89,
+      "sha256": "d4de64dd26ad051ecc120ec80f0a6daf4df02b403ae1ac1153a4dc2c8d2a1934"
+    },
+    {
+      "path": "build/phase2-evidence/display-red-glyph.log",
+      "bytes": 201,
+      "sha256": "8087a814616239afe5bd095a35d9c7c2341de49dda7bc259a46a2c3f10afbae6"
+    },
+    {
+      "path": "build/phase2-evidence/display-red-large.log",
+      "bytes": 89,
+      "sha256": "d4de64dd26ad051ecc120ec80f0a6daf4df02b403ae1ac1153a4dc2c8d2a1934"
+    },
+    {
+      "path": "build/phase2-evidence/display-red-percent.log",
+      "bytes": 125,
+      "sha256": "5d7ddadb3660d34a5e97e45a1710b14690fa32fa2724990e09f87f666c839f66"
+    },
+    {
+      "path": "build/phase2-evidence/editor-percent-green.log",
+      "bytes": 17845,
+      "sha256": "00261b6150da946d4fbf9028ce4ae84ba703fb4fe34c5af807ddd583ad91b55d"
+    },
+    {
+      "path": "build/phase2-evidence/editor-percent-red.log",
+      "bytes": 17851,
+      "sha256": "48623a3fffe219c8cc14b670fa8ac0365e963d0e61303e4b27eea327a12b13c7"
+    },
+    {
+      "path": "build/phase2-evidence/live-panel-browser-final.log",
+      "bytes": 605,
+      "sha256": "c77599b51651a92add7d4a8af89b80c73c33ae2ef387482f429fa5204afd25df"
+    },
+    {
+      "path": "build/phase2-evidence/live-panel-browser-snapshot.log",
+      "bytes": 605,
+      "sha256": "f19ee6cf78b3b73d5796f31ecb9759d5ccd6263cdff332c2e922fb433396ead6"
+    },
+    {
+      "path": "build/phase2-evidence/model-package-final.log",
+      "bytes": 449,
+      "sha256": "89e13e4891e559cde3eeedd348d024ab6fc51cb23f36c819274b5834d89267aa"
+    },
+    {
+      "path": "build/phase2-evidence/preservation-c.log",
+      "bytes": 965,
+      "sha256": "5c04f97fb1a34af2e62c824b3986f48831c54a70a934c7896eef1f2763ac2d75"
+    },
+    {
+      "path": "build/phase2-evidence/preview-server.log",
+      "bytes": 358,
+      "sha256": "1294e8267c190886aebe7e02c2006c76a8615c515b0e121d18812dd5acbe474e"
+    },
+    {
+      "path": "build/phase2-evidence/save-led-green.log",
+      "bytes": 98,
+      "sha256": "e4042321c65757d6536c958a7071baf28053a9387b3c93b797ef573a6d72ace6"
+    },
+    {
+      "path": "build/phase2-evidence/save-led-red.log",
+      "bytes": 1043,
+      "sha256": "95e64cd5ab64017aec885a9c852d6eeda52a6a1d5ebb2d9b39b1dfa470ee9375"
+    },
+    {
+      "path": "build/phase2-evidence/target-build-final.log",
+      "bytes": 3602,
+      "sha256": "34c39c874d87f22fc56620b336d9fb735214862534e491c8f39d01c5b9d1de77"
+    },
+    {
+      "path": "build/phase2-evidence/target-build.log",
+      "bytes": 3602,
+      "sha256": "d79525d7821864b0af9e5a4df9bc9807db0e0625234b0f60e9845b14c8cbba4a"
+    },
+    {
+      "path": "build/phase2-evidence/workflow-preservation-green.log",
+      "bytes": 977,
+      "sha256": "227af35e19e8f6c44085f1b9de05cfa200064ca955f37fe12ecfbaf23274c0c0"
+    },
+    {
+      "path": "build/phase2-evidence/zig-install.log",
+      "bytes": 405,
+      "sha256": "c5988be8cafdd129453b233f8fff7cff6f36c00497fa9539ef2b755307524862"
+    }
+  ],
+  "files": [
+    {
+      "path": "build/phase2-target-final/manifest.json",
+      "bytes": 2332,
+      "sha256": "4256f6e618c2699940524a97186c7db4f94de64070dcd71fd41d2602fb123ee3"
+    },
+    {
+      "path": "build/phase2-target-final/smk37-integration-NOT-FOR-INSTALL.bin",
+      "bytes": 421320,
+      "sha256": "24627d59094b22a890ce476242ce2b5da4aeb8fc3f1ebc4dd5a320dfedbef72b"
+    },
+    {
+      "path": "build/phase2-target-final/sections.txt",
+      "bytes": 629,
+      "sha256": "6f7393d0a71444964fa38206ba06440f634995ea5c9e30413c0d745052b1ebfc"
+    },
+    {
+      "path": "build/phase2-target-final/gen/ui_fonts.h",
+      "bytes": 233259,
+      "sha256": "ccec7fcead654ccd6a279f56db4d74e4e62f275e92a13714006788568b43ed54"
+    },
+    {
+      "path": "build/phase2-target-final/gen/felucca_tables.h",
+      "bytes": 36280,
+      "sha256": "a975289289c52b9f9fd2ff985a147b199f8a3afa9fb416e95f99cb83131993cb"
+    },
+    {
+      "path": "build/gen/ui_fonts.h",
+      "bytes": 233259,
+      "sha256": "ccec7fcead654ccd6a279f56db4d74e4e62f275e92a13714006788568b43ed54"
+    },
+    {
+      "path": "build/gen/felucca_tables.h",
+      "bytes": 36280,
+      "sha256": "a975289289c52b9f9fd2ff985a147b199f8a3afa9fb416e95f99cb83131993cb"
+    },
+    {
+      "path": "web/audio/smk-engine.wasm",
+      "bytes": 2378640,
+      "sha256": "8b5f1710a5c1312ea695a475902f09cf8a2827fdf77f876b14cfa198aad95e08"
+    },
+    {
+      "path": "web/audio/smk-build.json",
+      "bytes": 110,
+      "sha256": "f5910dc5cc4053d7c572b02d806d7096fef3938fa92e4ce608b3d547d0cad137"
+    },
+    {
+      "path": "build/phase2-evidence/stable-large-fuzz.png",
+      "bytes": 9763,
+      "sha256": "16afcfe0bbf6bca0cca1e5e5ece803bbed83132a149da031129a8d05a75feb7a"
+    },
+    {
+      "path": "web/firmware/public-release.json",
+      "bytes": 1159,
+      "sha256": "05b0d445cc525f68392d7a6b529f3b1bc7867755bbe9a9f45a3f3e23c86ecb5a"
+    },
+    {
+      "path": "web/firmware/felucca-smk-0.9.28-app.bin",
+      "bytes": 420796,
+      "sha256": "b53614f3420d80bdc7ad31cf5b1d20ed35b4063fba4d64b70b1226c6bc498ab9"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": "firmware/hal/smk37_flash_profile.h",
+      "bytes": 529,
+      "sha256": "3d668e011985ba9e0286a09e31659b3b4f643e63583dae9282eef96c328661f4"
+    },
+    {
+      "path": "firmware/hal/smk37_update_format.h",
+      "bytes": 1674,
+      "sha256": "8eddd8fe0daa2362698f1277d58d7a33ecfc59ad59428a103f04c7cea59ce55d"
+    },
+    {
+      "path": "firmware/loader/smk37_update_core.c",
+      "bytes": 3476,
+      "sha256": "c9106c2214bd676127c5ad71f049705f755194e612c40d7fb307ed2b707846e5"
+    },
+    {
+      "path": "firmware/loader/smk37_loader.c",
+      "bytes": 2874,
+      "sha256": "fde8503e4d6f806132582fbc2cc23af846b02fbb3d835443e048d7136b2e72d1"
+    },
+    {
+      "path": "firmware/hal/smk37_store.h",
+      "bytes": 5995,
+      "sha256": "ddb0fefbd80d7159a565deeda96f2ff955b12cc229255e898a2d6afe20b7ddc4"
+    },
+    {
+      "path": "firmware/hal/smk37_sample_store.h",
+      "bytes": 4475,
+      "sha256": "a343cabb5686cd7bb1b5c63277b74425cfbc23c7b459461abce85930184ed2c9"
+    },
+    {
+      "path": "firmware/hal/smk37_object_store.h",
+      "bytes": 4497,
+      "sha256": "583ceb5104b2a6ce2f1e21894ca234336b6923f60115c2b48d59c466aacb67fa"
+    },
+    {
+      "path": "firmware/hal/smk37_trim.h",
+      "bytes": 2842,
+      "sha256": "8dcaba3528156c6da7265fca8450d763c66883098dd11563aba176ae6e04d0ef"
+    },
+    {
+      "path": "firmware/hal/smk37_scanner.h",
+      "bytes": 5483,
+      "sha256": "f1e33a148d818e1b8dd5d2d29f4389aa5663f0ea56fa375355aaf33565c92765"
+    },
+    {
+      "path": "firmware/hal/fm1_flash.h",
+      "bytes": 9980,
+      "sha256": "b5d63acad1951bab0236991e56762c95c6eaf0ad94d1ea058cb9f0281059b693"
+    },
+    {
+      "path": "firmware/src/project.c",
+      "bytes": 62829,
+      "sha256": "543dae170011fc98a6856aeeadcf8296cf52b03358db2cd6d7153f4cf44d91f6"
+    },
+    {
+      "path": "firmware/src/core.h",
+      "bytes": 25466,
+      "sha256": "08158656b34e7a6cc99ad05cfaddd127ebf7f5a7a3ac060b5ab967b098e93cf4"
+    },
+    {
+      "path": "firmware/src/smk37_ui.c",
+      "bytes": 22757,
+      "sha256": "0f2e053aba6b87ef21537f45a7377de1ae09a0869f2ab9d531b4a555ba302afe"
+    },
+    {
+      "path": "firmware/src/smk37_remote_input.c",
+      "bytes": 4604,
+      "sha256": "73c52a04765f10f0f8a391096d49e15c66c6092518a1baf065e79cace0fd54ab"
+    },
+    {
+      "path": "firmware/src/smk37_remote_screen.c",
+      "bytes": 8550,
+      "sha256": "5d45156dc2a9277944928fc080dfd0bbb9ae8f04995316625c4b2710decb15d9"
+    },
+    {
+      "path": "firmware/src/smk37_editor.c",
+      "bytes": 21277,
+      "sha256": "86a535e325be6d1ec50dc250fecba1cedbfda028badfbb4d862fe45528f3713c"
+    },
+    {
+      "path": "web/smk-remote-panel.js",
+      "bytes": 9222,
+      "sha256": "3f6b59aea8570301f1521684f4a53148161c9855e9b1fc32e4345f9450a13c5e"
+    },
+    {
+      "path": "web/native-smk.js",
+      "bytes": 3016,
+      "sha256": "5d781c8437f944a790007a74d3c1af73bd8fb00c2b6af452de8a589046a7d46a"
+    },
+    {
+      "path": "web/smk37-installer.js",
+      "bytes": 6190,
+      "sha256": "cf4f888af2791a2c33f8e7a8354e138a4adaa272e167c8583c35bada4c45e58d"
+    },
+    {
+      "path": "tools/native_smk_wire.py",
+      "bytes": 17716,
+      "sha256": "d8a8374931f0506b5e9fde1ead154eae0341390578dc92a5a0a4f9c16cfa7d63"
+    },
+    {
+      "path": "tools/native_smk.py",
+      "bytes": 9971,
+      "sha256": "34821c43c9e6c7b2b0730552358164bb23c00fba78bcb782b4d29dd6f45869c0"
+    },
+    {
+      "path": "tools/serve_native_smk.py",
+      "bytes": 4681,
+      "sha256": "526994e740d8cd2dfd44e358d1f3e059905f504779ad151bde2186e99f342fea"
+    },
+    {
+      "path": "web/firmware/public-release.json",
+      "bytes": 1159,
+      "sha256": "05b0d445cc525f68392d7a6b529f3b1bc7867755bbe9a9f45a3f3e23c86ecb5a"
+    },
+    {
+      "path": "web/firmware/felucca-smk-0.9.28-app.bin",
+      "bytes": 420796,
+      "sha256": "b53614f3420d80bdc7ad31cf5b1d20ed35b4063fba4d64b70b1226c6bc498ab9"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "LICENSING.md",
+      "bytes": 6722,
+      "sha256": "89c487f3dc19218cc0d1ec0d73466092a5cbc5ab842a98b9a2f625a215cb0e5e"
+    }
+  ],
+  "preserved": [
+    {
+      "path": ".omo/drafts/dabbl8-smk-hardware-readiness.md",
+      "bytes": 4341,
+      "sha256": "11e51f42de2855b59c0c68faa474ce34b0748c2c4f7c1e6da6dab627ff07a21f"
+    },
+    {
+      "path": ".omo/drafts/fm1-smk37-comparison.md",
+      "bytes": 4607,
+      "sha256": "cc00d3c13f184b017a8fe64cbef74a8ae33d6e547c08578a244dec6ee2705f3a"
+    },
+    {
+      "path": ".omo/drafts/fork-created.png",
+      "bytes": 145856,
+      "sha256": "59fbbe9641db8cf1317e8d493c150bd0b1ea773ef9dac7dd5277c1fa6e3f56b5"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r1.md",
+      "bytes": 2799,
+      "sha256": "4bdbd264e28cfddfeca680d3c94069c48daaec3f15672a804b058092602f8cc0"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r2.md",
+      "bytes": 2146,
+      "sha256": "0342610609bf5321d6532e4d305da8c6e2c593ee5f910bb45bbf6fd19c83603f"
+    },
+    {
+      "path": ".omo/drafts/independent-review-r3.md",
+      "bytes": 2343,
+      "sha256": "df22546d1b684ab711cc61c438f76d8fdaf6e03deffe86f29c0cc4638c5df7cb"
+    },
+    {
+      "path": ".omo/drafts/momus-review-r2.md",
+      "bytes": 1099,
+      "sha256": "9a154c0a6f879e072b4d2e2477e8975530346393f54513e21c4060c59a77dbd2"
+    },
+    {
+      "path": ".omo/drafts/momus-review-r3.md",
+      "bytes": 769,
+      "sha256": "06bb00384a5f545d6a70f4ac05c0406293b743a876bb21068667be00664179c4"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r1.json",
+      "bytes": 2341,
+      "sha256": "279ec82e4807f71063517c42072d8e902beab7654d18b51a80aa9c7df8373ebd"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r2.json",
+      "bytes": 1523,
+      "sha256": "2c21bdffabf1178debee92e2e5ff9b66cc838e746ca59442820349261ca86870"
+    },
+    {
+      "path": ".omo/drafts/smk-readiness-r3.json",
+      "bytes": 1646,
+      "sha256": "ffec2418e5ec4ff6d9d8c491a47a0f77fcb0612b8195f94af0d0e532cfd0e42f"
+    },
+    {
+      "path": ".omo/plans/dabbl8-smk-hardware-readiness.md",
+      "bytes": 40930,
+      "sha256": "f23907b9df0b34924d82a3803554407185e225e3e08454938da9b6cf59024a66"
+    }
+  ]
+}

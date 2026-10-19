@@ -328,7 +328,11 @@ static int smk37_storage_erase(uint32_t off)
 {
     if(!SMK37_ENABLE_SAVES || !smk37_storage_writable || !FL_RANGE_OK(off,4096) || (off&4095))return -1;
     memset(smk37_dma,0,sizeof smk37_dma);
-    uint32_t took_us;return fl_erase4k(off,&took_us);
+    uint32_t took_us,f=irq_save();
+    smk37_indicators_blank();
+    int rc=FL_FAR(fl_erase4k_ram)(off,&took_us);
+    irq_restore(f);
+    return rc;
 }
 static int smk37_storage_program(uint32_t off,const void *src,uint32_t n)
 {
@@ -403,6 +407,7 @@ static int smk37_storage_probe(void)
 }
 static void smk37_project_service(void)
 {
+    smk37_preferences_poll();
 #if SMK37_ENABLE_SAMPLES
     if(smk37_samples_request){smk37_samples_request=0;int rc=smk37_sample_format();smk37_notice=rc?"SAMPLES: STOP / CHECK STORAGE":"SAMPLES READY / RECONNECT WEB";smk37_notice_at=fm1_ms;}
 #endif

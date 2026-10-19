@@ -18,6 +18,18 @@ for(let eng=0;eng<info.nengines;eng++){
   for(let p=0;p<info.pcount;p++){const d=decode(CMD.DESC,0,p);assert(d.min<=d.max);}
 }
 decode(CMD.PRESET,0,0);
+function openPage(page){
+  if(!new Uint32Array(e.memory.buffer,e.fw_status(),16)[7]){e.fw_event(0,0,1);e.fw_event(0,0,0);}
+  for(let i=0;i<64&&new Uint32Array(e.memory.buffer,e.fw_status(),16)[4]!==page;i++)e.fw_event(1,3,1);
+  assert.equal(new Uint32Array(e.memory.buffer,e.fw_status(),16)[4],page);
+}
+openPage(44);
+e.fw_event(1,6,1);assert.equal(decode(CMD.UI_STATE).filter,1);
+const favoriteSnapshot=mem.slice(e.fw_snapshot(),e.fw_snapshot()+e.fw_snapshot_size());
+e.fw_event(1,6,-1);assert.equal(decode(CMD.UI_STATE).filter,0);
+mem.set(favoriteSnapshot,e.fw_snapshot());assert.equal(e.fw_restore(),0);
+assert.equal(decode(CMD.UI_STATE).filter,1,'Browser snapshot retains pending native-panel favorite filter');
+e.fw_event(1,6,-1);openPage(0);
 assert.equal(decode(CMD.SMP_INFO).nslots,3);
 assert.equal(decode(CMD.DUMP).p.length,111);
 const request=([cmd,args])=>decode(cmd,...args);

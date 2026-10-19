@@ -17,7 +17,8 @@ publishing a release. These are Salt's operating rules, not upstream policy.
 - Shared Dabbl8 composition/project architecture remains governed by the main
   Dabbl8-first plan. Separately authorized SMK source maintenance is allowed;
   it does not begin the wider eight-track device port. See
-  `docs/dabbl8-smk/upstream-0.9.28.md` for the current maintenance checkpoint.
+  `docs/dabbl8-smk/upstream-0.9.28.md` and
+  `docs/dabbl8-smk/felucca-stable-fixes.md` for the maintenance checkpoints.
 - Fetch, compare, test, and prepare focused changes autonomously within the
   current task. Keep unrelated features in separate branches and PRs.
 - Never submit the Salt branch wholesale upstream. Prepare each proposed

@@ -18,6 +18,17 @@ static void lcd_blit(uint32_t x,uint32_t y,uint32_t w,uint32_t h,const uint16_t 
     assert(!locked && x+w<=240 && y+h<=240);++transfers;
     for(unsigned r=0;r<h;++r)memcpy(pixels+(y+r)*240+x,p+r*w,w*2);
 }
+static const void *shown_fonts[4];
+static unsigned shown_count;
+static void observe_pen(int32_t y,const void *font){if(y==35 && shown_count<4)shown_fonts[shown_count++]=font;}
+#define GFX_HOOK_TEXT(x0,y0,x1,y1,s,flags) ((void)0)
+#define GFX_HOOK_BLIT(x,y,r0) ((void)0)
+#define GFX_HOOK_BEGIN() ((void)0)
+#define GFX_HOOK_PIXELS(n) ((void)0)
+#define GFX_HOOK_ALIGN(x0,y0,x1,y1,mode,tag) ((void)0)
+#define GFX_HOOK_PEN(y,f) observe_pen(y,f)
+#define GFX_HOOK_ITEM(x0,y0,x1,y1) ((void)0)
+#define GFX_HOOK_ICON(x,y,size,id) ((void)0)
 #include "../firmware/src/gfx.c"
 #include "../firmware/src/smk37_draw.c"
 static void save(const char *name){
@@ -26,8 +37,49 @@ static void save(const char *name){
     for(unsigned i=0;i<240*240;++i){unsigned p=swap16(pixels[i]);fputc((p>>11)*255/31,f);fputc(((p>>5)&63)*255/63,f);fputc((p&31)*255/31,f);}fclose(f);
 }
 static void render(unsigned page){
+    shown_count=0;
     smk37_page=page;cv_begin(240,120,T_BG);cv_blit(0,0);cv_blit(0,120);
     smk37_sound_status();assert(!locked);
+}
+static void stable_large_values(void){
+    smk37_large=1;smk37_animation=0;
+    TSEL->p[P_ITYPE]=4;render(27);assert(shown_count==4);
+    assert(glyph_at(shown_fonts[0],fold(shown_fonts[0],'Z'))>=0 && "LARGE FUZZ value loses its Z glyphs");
+    const void *insert_font=shown_fonts[0];
+    for(int v=TP[P_ITYPE].min;v<=TP[P_ITYPE].max;++v){
+        TSEL->p[P_ITYPE]=v;render(27);assert(shown_fonts[0]==insert_font);
+    }
+    for(unsigned bold=0;bold<2;++bold){
+        font_set(bold);
+        for(unsigned column=0;column<4;++column){
+            const unsigned id[]={P_ATK,P_DEC,P_SUS,P_REL};
+            const void *font=0;
+            for(int v=TP[id[column]].min;v<=TP[id[column]].max;++v){
+                TSEL->p[id[column]]=v;render(3);assert(shown_count==4);
+                if(!font)font=shown_fonts[column];
+                assert(shown_fonts[column]==font && "LARGE envelope value changed font while turning its knob");
+            }
+        }
+        for(unsigned engine=0;engine<NENGINES;++engine){
+            TSEL->eng_req=engine;smk37_load_preset(TSEL,0);
+            for(unsigned page=1;page<=2;++page)for(unsigned column=0;column<4;++column){
+                int16_t *value;const param_desc_t *d=page_desc(&smk37_sound_pages[page],column,&value);
+                if(!d || !value)continue;
+                int old=*value;const void *font=0;
+                const int points[]={d->min,(d->min+d->max)/2,d->max};
+                for(unsigned n=0;n<3;++n){
+                    *value=points[n];render(page);assert(shown_count==4);
+                    if(!font)font=shown_fonts[column];
+                    assert(shown_fonts[column]==font && "LARGE engine value changed font");
+                }
+                *value=old;
+            }
+        }
+    }
+    smk37_animation=1;fm1_ms=15000;TSEL->p[P_ITYPE]=3;render(27);
+    fm1_ms+=150;TSEL->p[P_ITYPE]=4;render(27);assert(!smk37_roll[0].from[0]);
+    save("stable-large-fuzz");
+    smk37_large=0;font_set(0);TSEL->eng_req=0;smk37_load_preset(TSEL,0);
 }
 static uint32_t panel_hash(void){
     uint32_t h=2166136261u;
@@ -40,6 +92,11 @@ static void graph_responds(unsigned page,unsigned param,int a,int b){
 }
 int main(void){
     smk37_synth_init();
+    palette_set(0);font_set(0);
+    TSEL->p[P_PAN]=-64;render(12);assert(str_eq(smk37_roll[2].last,"-100"));
+    TSEL->p[P_PAN]=0;render(12);assert(str_eq(smk37_roll[2].last,"0"));
+    TSEL->p[P_PAN]=63;render(12);assert(str_eq(smk37_roll[2].last,"+100"));
+    stable_large_values();
     for(unsigned i=0;i<SCOPE_N;++i)scope_buf[i]=(int16_t)((i%48)*1100-26000);
     TSEL->step[0]=(step_t){.time=ST_NOTE,.n=1,.note={60},.vel=100};
     TSEL->step[4]=TSEL->step[0];TSEL->step[7]=TSEL->step[0];TSEL->step[12]=TSEL->step[0];
@@ -104,7 +161,7 @@ int main(void){
        Digit count changes and page changes snap. Values never get delayed. */
     smk37_animation=1;fm1_ms=2000;TSEL->p[P_ATK]=50;render(3);fm1_ms+=150;TSEL->p[P_ATK]=51;render(3);
     assert(smk37_roll[0].from[0]);save("test18-rolling");fm1_ms+=180;render(3);assert(!smk37_roll[0].from[0]);
-    fm1_ms+=150;smk37_draw_card(0,"VALUE","99","",-1);fm1_ms+=150;smk37_draw_card(0,"VALUE","100","",-1);assert(!smk37_roll[0].from[0]);
+    fm1_ms+=150;smk37_draw_card(0,"VALUE","99","",-1,0);fm1_ms+=150;smk37_draw_card(0,"VALUE","100","",-1,0);assert(!smk37_roll[0].from[0]);
     smk37_animation=0;fm1_ms+=150;TSEL->p[P_ATK]=101;render(3);assert(!smk37_roll[0].from[0]);
     /* Master volume has its own odometer, independent of BPM/cards. */
     smk37_animation=1;smk37_knob_bank=0;song.master_q12=2048;fm1_ms=7000;render(0);

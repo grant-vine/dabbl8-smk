@@ -42,6 +42,7 @@ API void synth_init(void){
 }
 static void service(void){
     smk37_hold_poll();smk37_performance_poll();
+    if(smk37_browser_dirty){smk37_browser_dirty=0;smk37_prefs_request=1;}
     if(smk37_prefs_request&&smk37_up_idle()){smk37_prefs_request=0;smk37_preferences_save();}
     if(smk37_rename_request){smk37_rename_request=0;smk37_preset_rename();}
     if(smk37_song_request){smk37_song_request=0;smk37_chain_prepare();}
